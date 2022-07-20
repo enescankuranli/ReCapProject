@@ -38,7 +38,7 @@ namespace Business.Concrete
 
         public List<Car> GetByColorId(int colorId)
         {
-            return _carDal.GetColorId(colorId);
+            throw new NotImplementedException();
         }
 
         public void Update(Car car)
