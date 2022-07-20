@@ -20,11 +20,10 @@ namespace Business.Concrete
 
         public void Add(Car car)
         {
-            if (car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-            }
+            if (car.DailyPrice>0)
+            _carDal.Add(car);
         }
+        
 
         public void Delete(Car car)
         {
@@ -36,9 +35,14 @@ namespace Business.Concrete
             return _carDal.GetAll();
         }
 
-        public List<Car> GetByColorId(int colorId)
+        public List<Car> GetAllByColorId(int ColorId)
         {
-            throw new NotImplementedException();
+            return _carDal.GetAll(c => c.ColorId == ColorId);
+        }
+
+        public List<Car> GetByDailyPrice(decimal min, decimal max)
+        {
+            return _carDal.GetAll(c => c.DailyPrice >= min && c.DailyPrice <= max);
         }
 
         public void Update(Car car)
