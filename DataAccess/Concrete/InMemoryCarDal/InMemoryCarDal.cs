@@ -1,5 +1,6 @@
 ﻿using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,10 @@ namespace DataAccess.Concrete.InMemoryCarDal
         public InMemoryCarDal()
         {
             _car = new List<Car> {
-            new Car { Id = 1, BrandId = 1, ColorId = 1, DailyPrice = 200, ModelYear = 2010, Description = "aile Arabası" },
-            new Car { Id = 2, BrandId = 2, ColorId = 2, DailyPrice = 200, ModelYear = 2010, Description = "Rahat geniş aile Arabası" },
-            new Car { Id = 3, BrandId = 3, ColorId = 1, DailyPrice = 100, ModelYear = 2005, Description = "aile Arabası" },
-            new Car { Id = 4, BrandId = 1, ColorId = 3, DailyPrice = 300, ModelYear = 2020, Description = "4*4 Arabası" }
+            new Car { CarId = 1, BrandId = 1, ColorId = 1, DailyPrice = 200, ModelYear = 2010, Description = "aile Arabası" },
+            new Car { CarId = 2, BrandId = 2, ColorId = 2, DailyPrice = 200, ModelYear = 2010, Description = "Rahat geniş aile Arabası" },
+            new Car { CarId = 3, BrandId = 3, ColorId = 1, DailyPrice = 100, ModelYear = 2005, Description = "aile Arabası" },
+            new Car { CarId = 4, BrandId = 1, ColorId = 3, DailyPrice = 300, ModelYear = 2020, Description = "4*4 Arabası" }
             };
         }
 
@@ -30,7 +31,7 @@ namespace DataAccess.Concrete.InMemoryCarDal
 
         public void Delete(Car car)
         {
-            Car carToDelete =_car.SingleOrDefault(c=>c.Id == c.Id);
+            Car carToDelete =_car.SingleOrDefault(c=>c.CarId == c.CarId);
             _car.Remove(carToDelete);
         }
 
@@ -49,6 +50,11 @@ namespace DataAccess.Concrete.InMemoryCarDal
             throw new NotImplementedException();
         }
 
+        public List<CarDetailsDto> GetCarDetails()
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Car> GetColorId(int colorId)
         {
             return _car.Where(c => c.ColorId == colorId ).ToList();
@@ -57,7 +63,7 @@ namespace DataAccess.Concrete.InMemoryCarDal
 
         public void Update(Car car)
         {
-            Car carToUpdate = _car.SingleOrDefault(c => c.Id == c.Id);
+            Car carToUpdate = _car.SingleOrDefault(c => c.CarId == c.CarId);
             carToUpdate.BrandId= car.BrandId;
             carToUpdate.ColorId= car.ColorId;
             carToUpdate.ModelYear=car.ModelYear;
