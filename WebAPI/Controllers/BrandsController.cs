@@ -17,9 +17,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult GetAll(Brand brand)
+        public IActionResult GetAll()
         {
-            var result = _brandService.GetAll(brand);
+            var result = _brandService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
