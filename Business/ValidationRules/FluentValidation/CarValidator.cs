@@ -23,8 +23,8 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(c => c.DailyPrice).GreaterThanOrEqualTo(10);
             RuleFor(c => c.ColorId).NotEmpty();
             RuleFor(c => c.ColorId).GreaterThan(0);
-            RuleFor(c => c.CarId).NotEmpty();
             RuleFor(c => c.Description).NotEmpty();
+            RuleFor(c => c.Description).MinimumLength(2);
         }
     }
 }

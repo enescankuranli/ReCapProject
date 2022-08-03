@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -17,17 +18,20 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
+        IBrandService _brandService;
 
-        public CarManager(ICarDal carDal)
+        public CarManager(ICarDal carDal, IBrandService brandService)
         {
             _carDal = carDal;
+            _brandService = brandService;
         }
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.DailyPrice > 0 && car.Description.Length > 2 && car.CarName.Length > 2)
+            IResult result = BusinessRules.Run(CheckIfBrandLimitExceded());
+            if (result != null)
             {
-                return new SuccessResult(Messages.CarAdded);
+                return result;
             }
                 _carDal.Add(car);
             return new ErrorResult(Messages.CarNameInvalid); 
@@ -64,6 +68,15 @@ namespace Business.Concrete
         public IResult Update(Car car)
         {
             _carDal.Update(car);
+            return new SuccessResult();
+        }
+        private IResult CheckIfBrandLimitExceded()
+        {
+            var result = _brandService.GetAll();
+            if (result.Data.Count>15)
+            {
+                return new ErrorResult(Messages.BrandLimitExceded);
+            }
             return new SuccessResult();
         }
     }
