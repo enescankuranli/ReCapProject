@@ -30,7 +30,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  CompanyName = cu.CompanyName,
                                  DailyPrice = c.DailyPrice,
                                  Description = c.Description,
-                                 Email = u.EMail,
+                                 Email = u.Email,
                                  FirstName = u.FirstName,
                                  LastName = u.LastName,
                                  ModelYear = c.ModelYear,
